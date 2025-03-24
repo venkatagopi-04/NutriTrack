@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    
+</head>
+<body>
+    <div class="container my-4">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4" style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 8px; color: white;">
+            <h1 class="dashboard-title">Dashboard</h1>
+            <div class="top-bar-btn">
+                <a href="#" id="openPopupTarget" class="btn btn-outline-secondary">Set Your Targets</a>
+                <a href="#" class="btn btn-outline-secondary">Home</a>
+                <a href="#" class="btn btn-outline-secondary">About</a>
+            </div>
+        </div>
+
+        <!-- Main Sections -->
+        <div class="margin-tt">
+        <div class="row">
+            <!-- Weekly Report -->
+ <!-- Weekly Report -->
+<div class="col-md-6 mb-4">
+    <div class="card shadow-lg border-0">
+        <div class="card-body">
+            <h5 class="card-title">Weekly Report</h5>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <div class="display-box">
+                        <i class="fa-solid fa-calendar-day"></i> <!-- Icon for Current week -->
+                        Current: {{ current_week_value }} Cal
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="display-box">
+                        <i class="fa-solid fa-bullseye"></i> <!-- Icon for Target -->
+                        Target: {{ target_week_value }} Cal
+                    </div>
+                </div>
+                
+            </div>
+            <div class="d-flex justify-content-between">
+                <span class="display-box">
+                    <i class="fa-solid fa-bolt"></i> <!-- Icon for Carbs -->
+                    Carbs: {{ carbs_sum_week }} Cal
+                </span>
+                
+                <span class="display-box">
+                    <i class="fa-solid fa-dumbbell"></i> <!-- Icon for Proteins -->
+                    Proteins: {{ proteins_sum_week }} Cal
+                </span>
+                
+                <span class="display-box">
+                    <i class="fa-solid fa-cogs"></i> <!-- Icon for Fats -->
+                    Fats: {{ fats_sum_week }} Cal
+                </span>
+                
+                <span class="display-box">
+                    <i class="fa-solid fa-syringe"></i> <!-- Icon for Sugars -->
+                    Sugars: {{ sugars_sum_week }} Cal
+                </span>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Monthly Report -->
+<div class="col-md-6 mb-4">
+    <div class="card shadow-lg border-0">
+        <div class="card-body">
+            <h5 class="card-title">Monthly Report</h5>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <div class="display-box">
+                        <i class="fa-solid fa-calendar-day"></i> <!-- Icon for Current month -->
+                        Current: {{ current_month_value }} Cal
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="display-box">
+                        <i class="fa-solid fa-bullseye"></i> <!-- Icon for Target -->
+                        Target: {{ target_month_value }} Cal
+                    </div>
+                </div>
+                
+            </div>
+            <div class="d-flex justify-content-between">
+                <span class="display-box">
+                    <i class="fa-solid fa-bolt"></i> <!-- Icon for Carbs -->
+                    Carbs: {{ carbs_sum_month }} Cal
+                </span>
+                
+                <span class="display-box">
+                    <i class="fa-solid fa-dumbbell"></i> <!-- Icon for Proteins -->
+                    Proteins: {{ proteins_sum_month }} Cal
+                </span>
+                
+                <span class="display-box">
+                    <i class="fa-solid fa-cogs"></i> <!-- Icon for Fats -->
+                    Fats: {{ fats_sum_month }} Cal
+                </span>
+                
+                <span class="display-box">
+                    <i class="fa-solid fa-syringe"></i> <!-- Icon for Sugars -->
+                    Sugars: {{ sugars_sum_month }} Cal
+                </span>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        </div>
+        </div>
+
+        <!-- Action Sections -->
+        <div class="row">
+            <!-- Type Something -->
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-lg border-0">
+                    <div class="card-body">
+                        <div class="card-body-chat">
+                            <form action="" id="chatForm" class="card-body-chat">
+                                <input type="text" class="form-control mb-3" placeholder="Type Something..." name="user_message">
+                                
+                                <!-- Using textarea for better handling of multiline values -->
+                                <input type="hidden" name="nutrition_report" value="
+                                Current month value: {{ current_month_value }}
+                                Target month value: {{ target_month_value }}
+                                Carbs: {{ carbs_sum_month }} Cal
+                                Proteins: {{ proteins_sum_month }} Cal
+                                Sugars: {{ sugars_sum_month }} Cal
+                                Fats: {{ fats_sum_month }} Cal
+                                Current Value: {{ current_week_value }} Cal
+                                Target Value: {{ target_month_value }} Cal
+                            ">
+                            
+                                <button type="submit">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                </button>
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scan Section -->
+            
+            <div class="col-md-6 mb-4">
+                
+                <div class="card shadow-lg border-0">
+                    <div class="card-body text-center">
+                        <div class="input-file-con">
+                            <a href="#" id="openPopupScan" class="btn btn-outline-secondary">Scan Here</a>
+
+                    </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+
+
+        <script>
+            document.getElementById("chatForm").addEventListener("submit", function(event) {
+                event.preventDefault();  // Prevent form submission
+            
+                let formData = new FormData(this);
+            
+                fetch("/process_chat", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Update the response-box with AI response
+                    document.querySelector(".response-box").textContent = data.response;
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    document.querySelector(".response-box").textContent = "Error fetching response.";
+                });
+            });
+            </script>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- Content and Images -->
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-lg border-0">
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+                        <p class="response-box">Hi, How Are You </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-lg border-0">
+                    <div class="card-body">
+                        <h5 class="card-title">Images</h5>
+                        <div class="d-flex justify-content-around">
+                            <div class="image-box" id="imageBox1">Image1</div>
+                            <div class="image-box" id="imageBox2">Image2</div>
+                            <div class="image-box" id="imageBox3">Image3</div>
+                            <div class="image-box" id="imageBox4">Image4</div>
+                            <div class="image-box" id="imageBox5">Image5</div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<script>
+    // Fetch recent images from the server and display them
+function fetchRecentImages() {
+    fetch('/recent-images')
+        .then(response => response.json())
+        .then(data => {
+            if (data.recent_images) {
+                displayRecentImages(data.recent_images);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching recent images:', error);
+        });
+}
+
+// Display the images in the respective divs
+function displayRecentImages(recentImages) {
+    recentImages.forEach((imageUrl, index) => {
+        document.getElementById(`imageBox${index + 1}`).innerHTML = `<img src="${imageUrl}" class="img-fluid" alt="Recent Image ${index + 1}" style="width: 78px; height: 78px;">`;
+    });
+}
+
+
+
+
+// On page load, fetch the top 3 recent images
+window.onload = fetchRecentImages;
+
+
+
+</script>
+
+
+<!-- Popup: Set Your Targets -->
+<div class="popup-overlay" id="popupOverlayTarget">
+    <div class="popup-card">
+        <span class="popup-close" id="closePopupTarget">&times;</span>
+        <h5 class="text-center mb-4">Set Your Targets</h5>
+        <form action="/submit-targets" method="POST">
+            <div class="mb-3">
+                <label for="monthlyTarget" class="form-label">Monthly Target</label>
+                <input type="number" class="form-control" id="monthlyTarget" name="monthlyTarget" required>
+            </div>
+
+
+            <div class="mb-3">
+                
+                <input type="hidden" class="form-control" id="weeklyTarget" name="weeklyTarget">
+                <input type="hidden" class="form-control" id="email" name="email" value="{{ request.args.get('email') }}" >
+
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<!-- Popup: Scan Options -->
+<div class="popup-overlay" id="popupOverlayScan">
+    <div class="popup-card">
+        <span class="popup-close" id="closePopupScan">&times;</span>
+        <h5 class="text-center mb-4">Scan Options</h5>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <!-- Upload Image Section -->
+            <input type="hidden" id="email" name="email" value="{{ request.args.get('email') }}" >
+           
+            <input type="hidden" name="m_targets" value="{{ target_month_value }}">
+            
+            <input type="hidden" name="w_targets" value="{{ target_week_value }}">
+            
+            
+            <div class="mb-3">
+                <label for="quantity" class="form-label">Enter Food Weight</label>
+                
+                <input type="number" class="form-control" id="quantity" name="quantity" required>
+
+            </div>
+            <div class="mb-3">
+                <label for="uploadImage" class="form-label">Upload an Image</label>
+                
+                <input type="file" class="form-control" id="uploadImage" name="image" accept="image/*">
+
+            </div>
+
+            <!-- Webcam Capture Section -->
+            <div class="mb-3">
+                <label class="form-label">Take a Picture</label>
+                <div id="cameraContainer" style="display: none;">
+                    <video id="video" width="100%" height="auto" autoplay></video>
+                    <button id="captureButton" type="button" class="btn btn-primary w-100 mt-2">Capture Photo</button>
+                </div>
+                <button id="openCamera" type="button" class="btn btn-secondary w-100 mt-2">Open Camera</button>
+                <canvas id="canvas" style="display: none;"></canvas>
+                <input type="hidden" name="cameraImage" id="cameraImageInput">
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    let videoStream = null; // Store camera stream
+
+    const video = document.getElementById('video');
+    const captureButton = document.getElementById('captureButton');
+    const openCameraButton = document.getElementById('openCamera');
+    const canvas = document.getElementById('canvas');
+    const cameraImageInput = document.getElementById('cameraImageInput');
+    const cameraContainer = document.getElementById('cameraContainer');
+    const closePopup = document.getElementById('closePopupScan');
+    const popupOverlay = document.getElementById('popupOverlayScan');
+
+    // Function to start the camera
+    function startCamera() {
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then((stream) => {
+                videoStream = stream;
+                video.srcObject = stream;
+                cameraContainer.style.display = 'block'; // Show camera UI
+                openCameraButton.style.display = 'none'; // Hide open button
+            })
+            .catch((err) => {
+                console.error('Error accessing camera:', err);
+            });
+    }
+
+    // Function to stop the camera
+    function stopCamera() {
+        if (videoStream) {
+            videoStream.getTracks().forEach(track => track.stop());
+            videoStream = null;
+            video.srcObject = null;
+        }
+        cameraContainer.style.display = 'none';
+        openCameraButton.style.display = 'block';
+    }
+
+    // Open camera on button click
+    openCameraButton.addEventListener('click', startCamera);
+
+    // Capture photo and close the camera
+    captureButton.addEventListener('click', () => {
+        const context = canvas.getContext('2d');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        const imageData = canvas.toDataURL('image/png');
+        cameraImageInput.value = imageData;
+
+        stopCamera(); // Stop camera after capture
+    });
+
+    // Close camera when popup is closed
+    closePopup.addEventListener('click', stopCamera);
+    popupOverlay.addEventListener('click', (event) => {
+        if (event.target === popupOverlay) {
+            stopCamera();
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    // Function to handle popup logic
+    function setupPopup(openButtonId, closeButtonId, popupId) {
+        const openButton = document.getElementById(openButtonId);
+        const closeButton = document.getElementById(closeButtonId);
+        const popupOverlay = document.getElementById(popupId);
+
+        openButton.addEventListener('click', function (e) {
+            e.preventDefault();
+            popupOverlay.style.display = 'flex';
+        });
+
+        closeButton.addEventListener('click', function () {
+            popupOverlay.style.display = 'none';
+        });
+
+        // Close popup when clicking outside the card
+        popupOverlay.addEventListener('click', function (e) {
+            if (e.target === popupOverlay) {
+                popupOverlay.style.display = 'none';
+            }
+        });
+    }
+
+    // Setup the two popups
+    setupPopup('openPopupTarget', 'closePopupTarget', 'popupOverlayTarget');
+    setupPopup('openPopupScan', 'closePopupScan', 'popupOverlayScan');
+</script>
+
+
+    <script>
+        function submitForm() {
+          document.getElementById('chatForm').submit();
+        }
+      </script>
+</body>
+</html>
